@@ -12,7 +12,7 @@ export const POST = async (req: Request) => {
     });
 
     await transport.sendMail({
-         from: `"${name}" <${email}>`,
+      from: `"${name} ${email}"`,
       to: process.env.EMAIL, 
       subject: `New contact from ${name}`,
       text: message,
