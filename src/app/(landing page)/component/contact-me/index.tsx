@@ -1,17 +1,12 @@
-
 "use client";
-
-import React, { useState, useEffect } from "react";
-import { useForm, ValidationError } from "@formspree/react";
+import React, { useState} from "react";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import { toast } from "sonner";
 
 const ContactMe = () => {
-  const [state, handleSubmit] = useForm("mkgvllnj");
-
-  // controlled inputs
+  const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -19,17 +14,36 @@ const ContactMe = () => {
   });
 
   // when succeeded, clear inputs + show toast
-  useEffect(() => {
-    if (state.succeeded) {
-      toast.success("Message sent successfully!");
-      setFormValues({ name: "", email: "", message: "" });
-    }
-  }, [state.succeeded]);
+  
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formValues),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!");
+        setFormValues({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -99,11 +113,6 @@ const ContactMe = () => {
                     placeholder="Enter your name"
                     className="w-full mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500"
                   />
-                  <ValidationError
-                    prefix="Name"
-                    field="name"
-                    errors={state.errors}
-                  />
                 </div>
 
                 <div>
@@ -121,11 +130,6 @@ const ContactMe = () => {
                     required
                     placeholder="Enter your email"
                     className="w-full mb-4 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500"
-                  />
-                  <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={state.errors}
                   />
                 </div>
 
@@ -145,20 +149,15 @@ const ContactMe = () => {
                     placeholder="Tell me about your project..."
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500"
                   />
-                  <ValidationError
-                    prefix="Message"
-                    field="message"
-                    errors={state.errors}
-                  />
                 </div>
 
                 <div>
                   <button
                     type="submit"
-                    disabled={state.submitting}
+                    disabled={isLoading}
                     className="bg-amber-500 text-white px-6 py-3 rounded-md hover:bg-amber-600 transition-all duration-300"
                   >
-                    {state.submitting ? "Submitting..." : "Submit"}
+                   {isLoading ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
