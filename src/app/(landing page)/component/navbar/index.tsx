@@ -15,7 +15,7 @@ const NavBar = () => {
           <div className="hidden md:flex gap-7 text-[17px]">
             <Link href={"/"}>Home</Link>
             <Link href={"/About"}>About</Link>
-            <Link href={"/porfolio"}>portfolio </Link>
+            <Link href={"/portfolio"}>portfolio </Link>
           </div>
           {/* Hamburger Icon */}
           <button
