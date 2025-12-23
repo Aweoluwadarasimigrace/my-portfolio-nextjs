@@ -14,7 +14,7 @@ interface Project {
     image: string;
     techstack: string[];
     liveLink: string;
-    gitHubLink: string;
+    githubLink: string;
 }
 
 const PracticeProject = () => {
@@ -65,7 +65,7 @@ const PracticeProject = () => {
                        <div className='flex justify-between items-center mt-auto'>
                          
                          <Link href={project.liveLink} target='_blank'>  <button className='px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium flex items-center gap-1'> <FaSatelliteDish />Live Demo</button></Link>
-                           <Link href={project.gitHubLink} target='_blank'> <button className='px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium flex items-center gap-1 rounded-lg'><FaCode /> View Code</button></Link>
+                           <Link href={project.githubLink} target='_blank'> <button className='px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium flex items-center gap-1 rounded-lg'><FaCode /> View Code</button></Link>
                        </div>
                       </div>
                    </div>
