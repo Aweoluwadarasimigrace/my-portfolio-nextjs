@@ -54,7 +54,7 @@ const Portfolio = () => {
       </div>
 
       <div>
-        <p className="text-center max-w-[900px] mx-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, asperiores quas, temporibus ab dolorem, accusamus repellendus voluptas consequuntur modi reiciendis quidem ipsum rem aliquam. Eaque ipsum doloribus illum asperiores nemo.</p>
+        <p className="text-center max-w-[900px] mx-auto">This page highlights a selection of projects I’ve worked on, showcasing my experience in building responsive, user-focused applications. Each project reflects my approach to problem-solving, clean code, and continuous learning with modern web technologies.</p>
       </div>
 
       {/* Content */}
